@@ -1,37 +1,32 @@
-const Sequelize = require('sequelize');
-const sequelize = require('../connection');
+'use strict';
 
-const Checkin = sequelize.define('checkins', {
-    horario_checkin: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
-    },
-    data_checkin: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
-        }
-    },
-    fk_id_membro: {
-        type: Sequelize.INTEGER,
-        references: {
-            model: 'membros',
-            key: 'id_membro'
-        }
-    }
-});
+module.exports = (sequelize, DataType) => {
 
-// force: true will drop the table if it already exists
-Checkin.sync({ force: true }).then(() => {
+    var Checkin = sequelize.define('checkins', {
 
-    return Checkin.create({
-        horario_checkin: new Date().toLocaleDateString('pt-br'),
-        data_checkin: new Date().toLocaleTimeString('pt-br'),
-        fk_id_membro: 1
+        'horario_checkin': {
+            type: DataType.STRING,
+            allowNull: false
+        },
+
+        'data_checkin': {
+            type: DataType.STRING,
+            allowNull: false
+        }
+
     });
 
-});
+    Checkin.associate = (models) => {
+
+        models.checkins.belongsTo(models.membros, {
+            onDelete: 'CASCADE',
+            foreignKey: {
+                allowNull: false
+            }
+        });
+
+    };
+
+    return Checkin;
+
+};

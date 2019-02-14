@@ -1,26 +1,28 @@
-const Sequelize = require('sequelize');
-const sequelize = require('../connection');
+'use strict';
 
-const Rebanho = sequelize.define('rebanhos', {
+module.exports = (sequelize, DataType) => {
 
-    nome_rebanho: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
+    var Rebanho = sequelize.define('rebanhos', {
+
+        'nome_rebanho': {
+            type: DataType.STRING,
+            allowNull: false,
+            validate: {
+                notEmpty: true
+            }
+        },
+
+        'qtd_membros': {
+            type: DataType.INTEGER.UNSIGNED
         }
-    },
-    qtd_membros: {
-        type: Sequelize.INTEGER
-    }
 
-});
-
-Rebanho.sync({ force: true }).then(() => {
-
-    return Rebanho.create({
-        nome_rebanho: 'Berith',
-        qtd_membros: 13
     });
 
-});
+    Rebanho.associate = (models) => {
+
+        models.rebanhos.hasMany(models.membros);
+
+    };
+    
+    return Rebanho;
+};

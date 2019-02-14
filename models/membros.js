@@ -1,33 +1,37 @@
-const Sequelize = require('sequelize');
-const sequelize = require('../connection');
+'use strict';
 
-const Membro = sequelize.define('membros', {
-    nome: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-            notEmpty: true
+module.exports = (sequelize, DataType) => {
+
+    var Membro = sequelize.define('membros', {
+
+        'nome_membro': {
+            type: DataType.STRING,
+            allowNull: false 
+        },
+
+        'contato': {
+            type: DataType.STRING
         }
-    },
-    contato: {
-        type: Sequelize.STRING
-    },
-    fk_id_rebanho: {
-        type: Sequelize.INTEGER,
-        references: {
-            model: 'rebanhos',
-            key: 'id_rebanho'
-        }
-    }
-});
 
-// force: true will drop the table if it already exists
-Membro.sync({ force: true }).then(() => {
-
-    return Membro.create({
-        nome: 'Pedro Alexandre',
-        contato: '85 9 8735-2635',
-        fk_id_rebanho: 1
     });
 
-});
+    Membro.associate = (models) => {
+
+        models.membros.belongsTo(models.rebanhos, {
+            onDelete: 'CASCADE',
+            foreignKey: {
+                allowNull: false
+            }
+        });
+
+    };
+
+    Membro.associate = (models) => {
+
+        models.membros.hasMany(models.checkins);
+
+    };
+
+    return Membro;
+
+};

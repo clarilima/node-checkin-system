@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "root",
+    "password": null,
+    "host": "127.0.0.1",
+    "dialect": "sqlite",
+    "storage": "kadosh_dev.db",
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "root",
+    "password": null,
+    "host": "127.0.0.1",
+    "dialect": "sqlite",
+    "storage": "kadosh_test.db",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "root",
+    "password": null,
+    "host": "127.0.0.1",
+    "dialect": "sqlite",
+    "storage": "kadosh_prod.db",
+    "operatorsAliases": false
+  }
+}
