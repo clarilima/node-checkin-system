@@ -1,4 +1,4 @@
-$("#btn-checkin").click(() => {
+$("#btn-start").click(() => {
 
     $('.transition').addClass('anim-trans');
 
