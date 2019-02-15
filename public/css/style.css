@@ -9,10 +9,11 @@ body {
   position:absolute;
   height:100%;
   width:30%;
-  background:#fff;
+  background:#eaeaea;
   transform: skewX(-5deg) translateX(-50px);
   transition:2s all ease-in-out;
   -webkit-transition:2s all ease-in-out;
+  display: none;
 }
 
 .content {

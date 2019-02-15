@@ -1,5 +1,7 @@
 $("#btn-start").click(() => {
 
+    $('.transition').show();
+
     $('.transition').addClass('anim-trans');
 
     setTimeout(() => {
